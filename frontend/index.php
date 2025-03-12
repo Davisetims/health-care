@@ -1,6 +1,6 @@
 <?php
   // Include necessary PHP files and configurations
-  include_once('config.php');
+  // include_once('config.php');
   
   // Page title
   $pageTitle = "Pharmail - The Future of Health";
@@ -59,7 +59,8 @@
   <header class="main-header">
     <nav class="navbar">
       <div class="logo">
-        <img src="assets/logo.png" alt="Pharmail Logo">
+      <img src="<?php echo 'assets\logo.jpg'; ?>" alt="Pharmail Logo">
+
         <span>Pharmail</span>
       </div>
       <div class="nav-links">

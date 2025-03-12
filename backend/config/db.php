@@ -1,19 +1,20 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';  // Include Composer autoload
+require __DIR__ . '/../vendor/autoload.php';
 
-// MongoDB connection credentials
-$mongoDBUri = "mongodb+srv://<USERNAME>:<PASSWORD>@<CLUSTER>.mongodb.net/?retryWrites=true&w=majority";
-$databaseName = "healthcare"; // Change to your database name
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+$dotenv->load();
+
+// Get MongoDB Credentials from `.env`
+$mongoUrl = $_ENV["MONGO_URI"];
+$dbName = $_ENV["MONGO_DB_NAME"];
 
 try {
-    // Create MongoDB client
-    $client = new MongoDB\Client($mongoDBUri);
-    
-    // Select database
-    $db = $client->$databaseName;
-
-    echo "✅ Connected successfully to MongoDB!";
+    $client = new MongoDB\Client($mongoUrl);
+    $database = $client->selectDatabase($dbName);
+    echo "✅ Connected to MongoDB!";
 } catch (Exception $e) {
-    die(" Connection failed: " . $e->getMessage());
+    echo " Connection failed: " . $e->getMessage();
 }
 ?>

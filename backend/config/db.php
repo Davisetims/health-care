@@ -1,20 +1,23 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Dotenv\Dotenv;
+use MongoDB\Client;
 
-$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+// Load environment variables
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-// Get MongoDB Credentials from `.env`
-$mongoUrl = $_ENV["MONGO_URI"];
-$dbName = $_ENV["MONGO_DB_NAME"];
+// Get MongoDB connection details from .env
+$mongoUri = $_ENV['MONGO_URI'];
+$databaseName = $_ENV['MONGO_DATABASE'];
 
 try {
-    $client = new MongoDB\Client($mongoUrl);
-    $database = $client->selectDatabase($dbName);
-    echo "✅ Connected to MongoDB!";
+    // Connect to MongoDB
+    $client = new Client($mongoUri);
+    $db = $client->selectDatabase($databaseName);
+
+    echo "✅ Connected successfully to MongoDB!";
 } catch (Exception $e) {
-    echo " Connection failed: " . $e->getMessage();
+    echo "Connection failed: " . $e->getMessage();
 }
-?>

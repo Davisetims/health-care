@@ -36,7 +36,7 @@ If not installed, download them:
 
 ### 2️⃣ **Clone the Repository**
 ```sh
-git clone https://github.com/your-repo/health-care.git
+git clone https://github.com/Davisetims/health-care.git
 cd health-care/backend
 ```
 

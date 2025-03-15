@@ -1,6 +1,6 @@
 <?php
 require '../config/db.php'; // MongoDB connection
-
+// this is like a blueprint of database tables
 class User {
     private $collection;
 

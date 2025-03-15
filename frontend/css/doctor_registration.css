@@ -1,0 +1,280 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f5ff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Left Panel Styles */
+.left-panel {
+    flex: 1;
+    background-color: #0070c0;
+    color: white;
+    padding: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.left-panel h2 {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 80%;
+    margin-bottom: 40px;
+}
+
+.illustrations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.illustration-item {
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
+}
+
+.illustration-item:hover {
+    transform: scale(1.05);
+}
+
+.doctor-male {
+    background-image: url('doctor-male.png');
+}
+
+.doctor-female {
+    background-image: url('doctor-female.png');
+}
+
+.nurse {
+    background-image: url('nurse.png');
+}
+
+/* Right Panel Styles */
+.right-panel {
+    flex: 1;
+    background-color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.form-container {
+    max-width: 450px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.form-container h1 {
+    color: #0d2656;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.welcome-text {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-section h3 {
+    color: #0d2656;
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #0070c0;
+    outline: none;
+}
+
+.password-field {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.remember-me input {
+    margin-right: 10px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background-color: #0d2656;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #08183d;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.login-link a {
+    color: #0070c0;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
+/* Checkbox Group Styles */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+}
+
+.checkbox-group input {
+    margin-right: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .left-panel {
+        padding: 30px;
+    }
+
+    .left-panel h2 {
+        font-size: 22px;
+        max-width: 100%;
+    }
+
+    .illustrations {
+        margin-bottom: 30px;
+    }
+
+    .illustration-item {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .right-panel {
+        padding: 20px;
+    }
+
+    .form-container {
+        padding: 0;
+    }
+
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+}

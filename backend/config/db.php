@@ -17,7 +17,6 @@ try {
     $client = new Client($mongoUri);
     $db = $client->selectDatabase($databaseName);
 
-    echo "✅ Connected successfully to MongoDB!";
 } catch (Exception $e) {
     echo "Connection failed: " . $e->getMessage();
 }

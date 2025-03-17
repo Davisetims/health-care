@@ -67,7 +67,7 @@
         <a href="#" class="active">Home</a>
         <a href="#">Services</a>
         <a href="#">About Us</a>
-        <a href="registration/doctor_registration.html">Find Doctor</a>
+        <a href="#">Find Doctor</a>
       </div>
       <div class="login-btn">
         <button onclick="location.href='/registration/doctor_registration.html'">Register as Doctor</button>

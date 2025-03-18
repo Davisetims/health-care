@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HMS Login Page</title>
 
-  
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="colors.css" type="text/css">
+
     <style>
-        body {
+               body {
             font-family: "Noto Sans", sans-serif;
             margin: 0;
             padding: 0;
@@ -22,20 +22,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f8f9fa;
+            background-color: var(--background-color);
         }
 
         .container {
             max-width: 900px;
-            background: white;
+            background: var(--form-background-color);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px var(--shadow-color);
         }
 
         .left-section {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark-color));
+            color: var(--text-color);
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -65,13 +65,13 @@
         .btn-primary {
             width: 100%;
             border-radius: 8px;
-            background-color: #007bff;
+            background-color: var(--primary-color);
             border: none;
             padding: 10px;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background-color: var(--primary-dark-color);
         }
 
         .forgot-password {
@@ -86,7 +86,6 @@
     </style>
 </head>
 <body>
-
 
 <div class="container row">
     <!-- Left Section (Illustration) -->

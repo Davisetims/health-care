@@ -3,6 +3,7 @@
     --primary-color: #4764e6;
     --secondary-color: #10b5b3;
     --text-color: #333;
+    --text-secondary:#ffffff;
     --light-gray: #f8f9fa;
     --medium-gray: #e9ecef;
     --dark-gray: #6c757d;
@@ -134,7 +135,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('assets/hero-bg.jpg');
+    background-image: linear-gradient(rgba(80, 80, 80, 0.519), rgba(76, 76, 76, 0.486)), url('../assets/hero-bg.jpg') !important;
     background-size: cover;
     background-position: center;
     padding: 4rem 2rem;
@@ -147,12 +148,12 @@ section {
 
 .hero-content h1 {
     margin-bottom: 1.5rem;
-    color: var(--text-color);
+    color: var(--text-secondary);
 }
 
 .hero-content p {
     margin-bottom: 2rem;
-    color: var(--dark-gray);
+    color: var(--text-secondary);
 }
 
 .app-buttons {
@@ -384,7 +385,7 @@ section {
     width: 120px;
     height: 120px;
     margin: 0 auto 1.5rem;
-    border-radius: 50%;
+    border-radius: 0 !important;
     overflow: hidden;
 }
 

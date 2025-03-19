@@ -159,17 +159,17 @@
           [
             'title' => 'Diagnostic Examination',
             'description' => 'Certified medical checkups with professional doctors',
-            'icon' => 'assets/diagnostic-icon.png'
+            'icon' => 'assets/diagnostic-icon.jpg'
           ],
           [
             'title' => 'Children\'s Ophthalmology',
             'description' => 'Specialized eye care for children of all ages',
-            'icon' => 'assets/ophthalmology-icon.png'
+            'icon' => 'assets/ophthalmology-icon.jpg'
           ],
           [
             'title' => 'Consultation',
             'description' => 'In-person or telehealth options to discuss your health concerns',
-            'icon' => 'assets/consultation-icon.png'
+            'icon' => 'assets/consultation-icon.jpg'
           ]
         ];
         

@@ -10,7 +10,6 @@
 
 <body>
     <div class="container">
-        <!-- Left side with illustrations -->
         <div class="left-panel">
             <div class="logo">LOGO</div>
             <h2>Smart healthcare at your doorstep with seamless access for all.</h2>
@@ -22,13 +21,12 @@
             </div>
         </div>
 
-        <!-- Right side with form -->
         <div class="right-panel">
             <div class="form-container">
                 <h1>HMS Portal</h1>
                 <p class="welcome-text">Welcome back. Please enter your details to register.</p>
 
-                <form id="registrationForm">
+                <form id="registrationForm" action="/../frontend/css/doctor_registration.php" method="POST">
                     <div class="form-section">
                         <h3>Personal Details</h3>
                         <div class="form-group">
@@ -85,9 +83,6 @@
                             <div class="password-field">
                                 <input type="password" id="password" name="password"
                                     placeholder="Create a strong password" required>
-                                <button type="button" class="toggle-password" id="togglePassword">
-                                    <img src="eye-icon.svg" alt="Show password">
-                                </button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -95,9 +90,6 @@
                             <div class="password-field">
                                 <input type="password" id="confirmPassword" name="confirmPassword"
                                     placeholder="Confirm your password" required>
-                                <button type="button" class="toggle-password" id="toggleConfirmPassword">
-                                    <img src="eye-icon.svg" alt="Show password">
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -112,7 +104,7 @@
                     <button type="submit" class="btn-primary">Register Now</button>
 
                     <div class="login-link">
-                        Already have an account? <a href="login.php">Sign in</a>
+                        Already have an account? <a href="../login.php">Sign in</a>
                     </div>
                 </form>
 
@@ -123,7 +115,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../javascript/doctor_registration.js"></script>
 </body>
 
 </html>

@@ -70,7 +70,7 @@
         <a href="#">Find Doctor</a>
       </div>
       <div class="login-btn">
-        <button onclick="location.href='/registration/doctor_registration.html'">Register as Doctor</button>
+        <button onclick="location.href='/pages/doctor_registration.html'">Register as Doctor</button>
       </div>
 
     </nav>

@@ -71,3 +71,29 @@ function setupActionButtons(className, message) {
         });
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const userProfileImg = document.querySelector(".user-profile img");
+    const usernameSpan = document.querySelector(".user-profile span");
+    const welcomeMessage = document.querySelector(".dashboard-content h1");
+    
+    // Retrieve user data from localStorage
+    const userData = JSON.parse(localStorage.getItem("user"));
+    
+    if (userData) {
+        // Set user profile image or default placeholder
+        userProfileImg.src = userData.personal_details?.profile_picture || "/api/placeholder/40/40";
+        userProfileImg.alt = userData.username || "User Profile";
+        
+        // Set username
+        usernameSpan.textContent = userData.username || "Unknown User";
+        
+        // Update welcome message
+        if (welcomeMessage) {
+            welcomeMessage.textContent = `Welcome back, ${userData.username || "User"}!`;
+        }
+    } else {
+        // Redirect to login page if user data is missing
+        window.location.href = "login.html";
+    }
+});

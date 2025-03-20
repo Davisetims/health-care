@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS Registration</title>
+    <link rel="stylesheet" href="../css/doctor_registration.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo">LOGO</div>
+            <h2>Smart healthcare at your doorstep with seamless access for all.</h2>
+
+            <div class="illustrations">
+                <div class="illustration-item doctor-male"></div>
+                <div class="illustration-item doctor-female"></div>
+                <div class="illustration-item nurse"></div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="form-container">
+                <h1>HMS Portal</h1>
+                <p class="welcome-text">Welcome back. Please enter your details to register.</p>
+
+                <form id="registrationForm">
+                    <div class="form-section">
+                        <h3>Personal Details</h3>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" placeholder="Enter your age" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Professional Details</h3>
+                        <div class="form-group">
+                            <label for="specialization">Specialization</label>
+                            <input type="text" id="specialization" name="specialization"
+                                placeholder="Enter your specialization" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Contact Information</h3>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Shift Availability</h3>
+                        <div class="form-group checkboxes">
+                            <label>Select available days:</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="shift_time[]" value="Monday"> Monday</label>
+                                <label><input type="checkbox" name="shift_time[]" value="Tuesday"> Tuesday</label>
+                                <label><input type="checkbox" name="shift_time[]" value="Wednesday"> Wednesday</label>
+                                <label><input type="checkbox" name="shift_time[]" value="Thursday"> Thursday</label>
+                                <label><input type="checkbox" name="shift_time[]" value="Friday"> Friday</label>
+                                <label><input type="checkbox" name="shift_time[]" value="Saturday"> Saturday</label>
+                                <label><input type="checkbox" name="shift_time[]" value="Sunday"> Sunday</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Account Setup</h3>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="password-field">
+                                <input type="password" id="password" name="password"
+                                    placeholder="Create a strong password" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="password-field">
+                                <input type="password" id="confirmPassword" name="confirmPassword"
+                                    placeholder="Confirm your password" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group remember-me">
+                        <label>
+                            <input type="checkbox" name="terms" required>
+                            I agree to the Terms and Conditions
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Register Now</button>
+
+                    <div class="login-link">
+                        Already have an account? <a href="../login.php">Sign in</a>
+                    </div>
+                </form>
+
+                <div class="footer">
+                    <p>Powered by HMS Care Pvt. Ltd</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../javascript/doctor_registration.js"></script>
+</body>
+
+</html>

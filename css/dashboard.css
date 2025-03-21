@@ -591,6 +591,127 @@ header {
     color: var(--light-text);
 }
 
+/* Appointments List */
+    
+.appointment-time i {
+    margin-right: 5px;
+}
+
+.appointment-time span {
+    margin-right: 15px;
+}
+
+.appointment-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-reschedule,
+.btn-cancel,
+.btn-refill,
+.btn-view {
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-reschedule {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.btn-cancel {
+    background-color: #ffebee;
+    color: var(--danger-color);
+}
+
+.btn-refill,
+.btn-view {
+    background-color: var(--blue-light);
+    color: var(--primary-color);
+}
+
+        /* Patient List */
+        .patient-item {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.patient-item:last-child {
+    border-bottom: none;
+}
+
+.patient-icon {
+    margin-right: 15px;
+}
+
+.patient-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.patient-details {
+    flex: 1;
+}
+
+.patient-details h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.patient-details p {
+    color: var(--light-text);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.patient-info {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--light-text);
+}
+
+.patient-info span {
+    margin-right: 15px;
+}
+
+
+/* Hamburger menu styles */
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 90px;
+    left: 20px;
+    font-size: 38px;
+    color:var(--primary-color);
+    cursor: pointer;
+    z-index: 999;
+}
+
+/* Close button styles */
+.close-btn {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bolder;
+    color: var(--primary-color);
+    cursor: pointer;
+    z-index: 1001;
+}
+
+
+
 /* Responsive Design */
 @media (max-width: 1100px) {
     .stats-cards {
@@ -604,8 +725,14 @@ header {
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 70px;
+        width: 250px !important;
+        height: 100vh;
         position: fixed;
+        top: 0;
+        left: 0;
+        transition: transform 0.3s ease;
+        z-index: 1000;
+
     }
 
     .logo h2 {
@@ -633,6 +760,26 @@ header {
     .search-bar {
         width: 200px;
     }
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .close-btn {
+        display: block;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -653,3 +800,4 @@ header {
         display: none;
     }
 }
+

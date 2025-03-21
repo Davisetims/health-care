@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Confirmation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            border: 3px solid #0f2b46;
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0f2b46;
+            margin-bottom: 10px;
+        }
+
+        .modal-body {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .btn-logout {
+            background-color: #842204;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background-color: #6a1a03; /* Darker shade for hover */
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="showLogoutDialog()" class="btn btn-logout">Log Out</button>
+
+    <div id="logoutModal" class="modal" aria-hidden="true">
+        <div class="modal-header">Confirm</div>
+        <div class="modal-body">
+            You are already logged in as <strong>JOHN GRANT</strong>,
+            you need to log out before logging in as a different user.
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-logout" onclick="logout()">Log out</button>
+            <button class="btn btn-cancel" onclick="closeLogoutDialog()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function showLogoutDialog() {
+            const modal = document.getElementById("logoutModal");
+            modal.style.display = "block";
+            modal.setAttribute("aria-hidden", "false");
+
+            // Add event listener for Escape key to close modal
+            document.addEventListener("keydown", handleEscapeKey);
+        }
+
+        function closeLogoutDialog() {
+            const modal = document.getElementById("logoutModal");
+            modal.style.display = "none";
+            modal.setAttribute("aria-hidden", "true");
+
+            // Remove event listener for Escape key
+            document.removeEventListener("keydown", handleEscapeKey);
+        }
+
+        function handleEscapeKey(event) {
+            if (event.key === "Escape") {
+                closeLogoutDialog();
+            }
+        }
+
+        function logout() {
+            // Clear session storage (or local storage if needed)
+            sessionStorage.clear();
+
+            // Redirect to login page
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</body>
+</html>

@@ -70,7 +70,7 @@
         <a href="#">Find Doctor</a>
       </div>
       <div class="login-btn">
-        <button onclick="location.href='/pages/patient_dashboard.html'">Register as Doctor</button>
+        <button onclick="location.href='/pages/login.html'">Login</button>
       </div>
 
     </nav>
@@ -125,7 +125,8 @@
           </select>
         </div>
       </div>
-      <button class="book-btn">Book</button>
+      <button class="book-btn" id="bookButton">Book</button>
+
     </div>
   </section>
 

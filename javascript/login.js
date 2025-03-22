@@ -200,11 +200,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Store access token securely
                 localStorage.setItem('access_token', data.access_token);
                 localStorage.setItem('user', JSON.stringify(data.user));
-                console.log('access_token')
-                alert('Login successful!');
-                
-                // Redirect to dashboard or homepage
-                window.location.href = 'patient_dashboard.html';
+
+                // Redirect based on user role
+                if (data.user.role === 'doctor') {
+                    window.location.href = 'doctor_dashboard.html';
+                } else if (data.user.role === 'patient') {
+                    window.location.href = 'patient_dashboard.html';
+                } else if (data.user.role === 'admin') {
+                    window.location.href = 'admin_dashboard.html';
+                } else {
+                    throw new Error('Invalid user role.');
+                }
+
             } catch (error) {
                 console.error('Login Error:', error);
                 showError(error.message);
@@ -212,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
 
 // Helper function to display errors
 function showError(message) {

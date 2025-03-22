@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptionist Dashboard - HMS</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+        }
+
+        .dashboard-container {
+            display: flex;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: #fff;
+            height: 100vh;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar .logo h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .sidebar .menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar .menu ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar .menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar .menu ul li a:hover {
+            background-color: #34495e;
+        }
+
+        .sidebar .menu ul li a i {
+            margin-right: 10px;
+        }
+
+        .sidebar .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            width: 210px;
+        }
+
+        .sidebar .sidebar-footer a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar .sidebar-footer a:hover {
+            background-color: #34495e;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar i {
+            margin-right: 10px;
+            color: #888;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .notifications {
+            position: relative;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .notifications .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #e74c3c;
+            color: #fff;
+            border-radius: 50%;
+            padding: 5px 8px;
+            font-size: 12px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-profile i {
+            margin-left: 10px;
+        }
+
+        /* Stats Cards */
+        .stats-cards {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 23%;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .stat-icon.blue {
+            color: #3498db;
+        }
+
+        .stat-icon.green {
+            color: #2ecc71;
+        }
+
+        .stat-icon.purple {
+            color: #9b59b6;
+        }
+
+        .stat-icon.orange {
+            color: #e67e22;
+        }
+
+        .stat-details h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .stat-details p {
+            margin: 5px 0 0;
+            color: #888;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: flex;
+            gap: 20px;
+        }
+
+        .dashboard-column {
+            flex: 1;
+        }
+
+        .dashboard-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .card-header .view-all {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .card-header .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* Appointments List */
+        .appointments-list .appointment-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .appointment-item .appointment-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .appointment-item .appointment-details h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .appointment-item .appointment-details p {
+            margin: 5px 0;
+            color: #888;
+        }
+
+        .appointment-item .appointment-time {
+            display: flex;
+            align-items: center;
+            color: #888;
+        }
+
+        .appointment-item .appointment-time i {
+            margin-right: 5px;
+        }
+
+        .appointment-item .appointment-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .appointment-item .btn-check-in {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .appointment-item .btn-cancel {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .quick-actions .action-item {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .quick-actions .action-item .action-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .quick-actions .action-item span {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Pending Bills */
+        .bills-list .bill-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .bill-item .bill-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: #3498db;
+        }
+
+        .bill-item .bill-details h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .bill-item .bill-details p {
+            margin: 5px 0;
+            color: #888;
+        }
+
+        .bill-item .bill-info {
+            display: flex;
+            gap: 10px;
+            color: #888;
+        }
+
+        .bill-item .bill-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #2ecc71;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>HMS</h2>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
+                    <li><a href="#"><i class="fas fa-user-plus"></i> Add Patient</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Patient Records</a></li>
+                    <li><a href="#"><i class="fas fa-file-invoice"></i> Billing</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search patients, appointments...">
+                </div>
+                <div class="user-area">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">5</span>
+                    </div>
+                    <div class="user-profile">
+                        <img id="profilePic" src="https://via.placeholder.com/40" alt="Profile Picture">
+                        <span id="usernameDisplay">Receptionist</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <h1>Welcome back, Receptionist</h1>
+                <p class="subtitle">Manage appointments, patient records, and billing efficiently.</p>
+
+                <!-- Stats Cards -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>15</h3>
+                            <p>Today's Appointments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>8</h3>
+                            <p>New Patients Today</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>12</h3>
+                            <p>Pending Bills</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>3</h3>
+                            <p>Overdue Tasks</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Column Layout -->
+                <div class="dashboard-grid">
+                    <!-- Left Column -->
+                    <div class="dashboard-column">
+                        <!-- Today's Appointments -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2>Today's Appointments</h2>
+                                <a href="#" class="view-all">View All</a>
+                            </div>
+                            <div class="appointments-list">
+                                <div class="appointment-item">
+                                    <div class="appointment-icon">
+                                        <img src="https://via.placeholder.com/50" alt="Patient">
+                                    </div>
+                                    <div class="appointment-details">
+                                        <h3>John Doe</h3>
+                                        <p>General Checkup</p>
+                                        <div class="appointment-time">
+                                            <i class="far fa-calendar-alt"></i>
+                                            <span>Today</span>
+                                            <i class="far fa-clock"></i>
+                                            <span>10:00 AM</span>
+                                        </div>
+                                    </div>
+                                    <div class="appointment-actions">
+                                        <button class="btn-check-in" onclick="checkIn()">Check In</button>
+                                        <button class="btn-cancel" onclick="cancelAppointment()">Cancel</button>
+                                    </div>
+                                </div>
+                                <div class="appointment-item">
+                                    <div class="appointment-icon">
+                                        <img src="https://via.placeholder.com/50" alt="Patient">
+                                    </div>
+                                    <div class="appointment-details">
+                                        <h3>Jane Smith</h3>
+                                        <p>Dermatology</p>
+                                        <div class="appointment-time">
+                                            <i class="far fa-calendar-alt"></i>
+                                            <span>Today</span>
+                                            <i class="far fa-clock"></i>
+                                            <span>2:30 PM</span>
+                                        </div>
+                                    </div>
+                                    <div class="appointment-actions">
+                                        <button class="btn-check-in" onclick="checkIn()">Check In</button>
+                                        <button class="btn-cancel" onclick="cancelAppointment()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Patients -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2>Recent Patients</h2>
+                                <a href="#" class="view-all">View All</a>
+                            </div>
+                            <div class="patients-list">
+                                <div class="patient-item">
+                                    <div class="patient-icon">
+                                        <img src="https://via.placeholder.com/50" alt="Patient">
+                                    </div>
+                                    <div class="patient-details">
+                                        <h3>Alice Johnson</h3>
+                                        <p>Registered: March 20, 2025</p>
+                                    </div>
+                                    <div class="patient-actions">
+                                        <button class="btn-view" onclick="viewPatient()">View</button>
+                                    </div>
+                                </div>
+                                <div class="patient-item">
+                                    <div class="patient-icon">
+                                        <img src="https://via.placeholder.com/50" alt="Patient">
+                                    </div>
+                                    <div class="patient-details">
+                                        <h3>Robert Brown</h3>
+                                        <p>Registered: March 19, 2025</p>
+                                    </div>
+                                    <div class="patient-actions">
+                                        <button class="btn-view" onclick="viewPatient()">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="dashboard-column">
+                        <!-- Quick Actions -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2>Quick Actions</h2>
+                            </div>
+                            <div class="quick-actions">
+                                <div class="action-item" onclick="scheduleAppointment()">
+                                    <div class="action-icon blue">
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </div>
+                                    <span>Schedule Appointment</span>
+                                </div>
+                                <div class="action-item" onclick="addPatient()">
+                                    <div class="action-icon green">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <span>Add New Patient</span>
+                                </div>
+                                <div class="action-item" onclick="generateBill()">
+                                    <div class="action-icon purple">
+                                        <i class="fas fa-file-invoice"></i>
+                                    </div>
+                                    <span>Generate Bill</span>
+                                </div>
+                                <div class="action-item" onclick="printReports()">
+                                    <div class="action-icon orange">
+                                        <i class="fas fa-print"></i>
+                                    </div>
+                                    <span>Print Reports</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Bills -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h2>Pending Bills</h2>
+                                <a href="#" class="view-all">View All</a>
+                            </div>
+                            <div class="bills-list">
+                                <div class="bill-item">
+                                    <div class="bill-icon">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    </div>
+                                    <div class="bill-details">
+                                        <h3>Invoice #12345</h3>
+                                        <p>Patient: John Doe</p>
+                                        <div class="bill-info">
+                                            <span>Amount: $150</span>
+                                            <span>Due: March 25, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="bill-actions">
+                                        <button class="btn-pay" onclick="markPaid()">Mark Paid</button>
+                                    </div>
+                                </div>
+                                <div class="bill-item">
+                                    <div class="bill-icon">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    </div>
+                                    <div class="bill-details">
+                                        <h3>Invoice #12346</h3>
+                                        <p>Patient: Jane Smith</p>
+                                        <div class="bill-info">
+                                            <span>Amount: $200</span>
+                                            <span>Due: March 26, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="bill-actions">
+                                        <button class="btn-pay" onclick="markPaid()">Mark Paid</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript Functions
+        function checkIn() {
+            alert("Patient checked in successfully!");
+        }
+
+        function cancelAppointment() {
+            alert("Appointment canceled!");
+        }
+
+        function viewPatient() {
+            alert("Viewing patient details...");
+        }
+
+        function scheduleAppointment() {
+            alert("Redirecting to schedule appointment...");
+        }
+
+        function addPatient() {
+            alert("Redirecting to add new patient...");
+        }
+
+        function generateBill() {
+            alert("Generating bill...");
+        }
+
+        function printReports() {
+            alert("Printing reports...");
+        }
+
+        function markPaid() {
+            alert("Bill marked as paid!");
+        }
+    </script>
+</body>
+
+</html>

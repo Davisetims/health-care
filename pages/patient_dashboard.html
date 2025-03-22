@@ -23,12 +23,13 @@
                     <li><a href="../pages/medical_record.html"><i class="fas fa-notes-medical"></i> Medical Records</a></li>
                     <li><a href="#"><i class="fas fa-pills"></i> Prescriptions</a></li>
                     <li><a href="#"><i class="fas fa-comment-medical"></i> Consultations</a></li>
-                    <li><a href="#"><i class="fas fa-user-md"></i> Find Doctors</a></li>
+                    <li><a href="../pages/find_doctors.html"><i class="fas fa-user-md"></i> Find Doctors</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="#" id="logoutButton"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
             </div>
         </div>
 
@@ -190,11 +191,33 @@
                                 <h2>Quick Actions</h2>
                             </div>
                             <div class="quick-actions">
-                                <div class="action-item">
+                                <div class="action-item" id="bookAppointmentBtn">
                                     <div class="action-icon blue">
                                         <i class="fas fa-calendar-plus"></i>
                                     </div>
                                     <span>Book Appointment</span>
+                                </div>
+                                <!-- Book Appointment Popup -->
+                                <!-- Book Appointment Popup -->
+                                <div id="appointmentModal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close">&times;</span>
+                                        <h2>Book an Appointment</h2>
+                                        <form id="appointmentForm">
+                                            <label for="doctor">Select Doctor:</label>
+                                            <select id="doctor" required>
+                                                <option value="">Loading doctors...</option>
+                                            </select>
+                                
+                                            <label for="appointment_date">Appointment Date:</label>
+                                            <input type="datetime-local" id="appointment_date" required>
+                                
+                                            <label for="notes">Notes (Optional):</label>
+                                            <textarea id="notes"></textarea>
+                                
+                                            <button type="submit">Book Appointment</button>
+                                        </form>
+                                    </div>
                                 </div>
                                 <div class="action-item">
                                     <div class="action-icon green">

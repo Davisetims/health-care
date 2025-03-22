@@ -224,7 +224,7 @@ function filterRecords() {
           );
       });
   }
-  
+  // This is a comment
   sortRecords();
 }
 

@@ -19,7 +19,7 @@
             <nav class="menu">
                 <ul>
                     <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
+                    <li><a href="#appointments"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
                     <li><a href="#"><i class="fas fa-notes-medical"></i> Medical Records</a></li>
                     <li><a href="#"><i class="fas fa-pills"></i> Prescriptions</a></li>
                     <li><a href="#"><i class="fas fa-comment-medical"></i> Consultations</a></li>
@@ -107,7 +107,7 @@
                         <div class="dashboard-card">
                             <div class="card-header">
                                 <h2>Upcoming Appointments</h2>
-                                <a href="#" class="view-all">View All</a>
+                                <a href="#appointments" class="view-all">View All</a>
                             </div>
                             <div class="appointments-list">
                                 <div class="appointment-item">
@@ -319,6 +319,16 @@
             </div>
         </div>
     </div>
+
+    <!-- The pop up for fetching the appointments of the user -->
+    <div id="appointmentsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Your Appointments</h2>
+            <div id="appointmentsList"></div>
+        </div>
+    </div>
+    
 
     <script src="../javascript/patient_dashboard.js"></script>
 </body>

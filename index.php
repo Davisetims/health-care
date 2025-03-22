@@ -59,7 +59,7 @@
   <header class="main-header">
     <nav class="navbar">
       <div class="logo">
-      <img src="<?php echo 'assets\logo.jpg'; ?>" alt="Pharmail Logo">
+      <img src="<?php echo 'assets\logo-removebg-preview.png'; ?>" alt="Pharmail Logo">
 
         <span>Pharmail</span>
       </div>

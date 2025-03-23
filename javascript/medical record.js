@@ -62,49 +62,58 @@ function setupEventListeners() {
 
 // Fetch medical records from the API
 async function fetchMedicalRecords() {
-  showLoadingState();
+    showLoadingState();
   
-  try {
-      // Add fetch options to help with potential CORS issues
-      const options = {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-      };
+    try {
+        // Retrieve user data and access token from local storage
+        const user = JSON.parse(localStorage.getItem('user'));
+        const accessToken = localStorage.getItem('access_token');
+
+        // Check if the user and access token exist
+        if (!user || !accessToken) {
+            throw new Error('User not authenticated. Please log in.');
+        }
+
+        // Fetch options with the access token for authentication
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        };
+
+        // Attempt to fetch from the API
+        const response = await fetch('https://hcms-api-production.up.railway.app/api/get/user/medical-records/', options);
       
-      // Attempt to fetch from the API
-      const response = await fetch('https://hcms-api-production.up.railway.app/api/medical-records/', options);
+        if (!response.ok) {
+            throw new Error(`Server responded with status: ${response.status}`);
+        }
       
-      if (!response.ok) {
-          throw new Error(`Server responded with status: ${response.status}`);
-      }
+        const data = await response.json();
       
-      const data = await response.json();
-      
-      if (Array.isArray(data) && data.length > 0) {
-          allRecords = data;
-          filteredRecords = [...allRecords];
-          renderRecords(filteredRecords);
-      } else {
-          // If API returns empty array, use sample data
-          console.log('API returned empty data, using sample records');
-          allRecords = sampleRecords;
-          filteredRecords = [...allRecords];
-          renderRecords(filteredRecords);
-      }
-  } catch (error) {
-      console.error('Failed to fetch medical records:', error);
-      
-      // Use sample data as fallback
-      console.log('Using sample data due to API error');
-      allRecords = sampleRecords;
-      filteredRecords = [...allRecords];
-      renderRecords(filteredRecords);
-      
-      // Show error message but still display sample data
-      showErrorState('Could not connect to the medical records API. Showing sample data instead.');
-  }
+        if (Array.isArray(data) && data.length > 0) {
+            allRecords = data;
+            filteredRecords = [...allRecords];
+            renderRecords(filteredRecords);
+        } else {
+            console.log('API returned empty data, using sample records');
+            allRecords = sampleRecords;
+            filteredRecords = [...allRecords];
+            renderRecords(filteredRecords);
+        }
+    } catch (error) {
+        console.error('Failed to fetch medical records:', error);
+        
+        // Use sample data as fallback
+        console.log('Using sample data due to API error');
+        allRecords = sampleRecords;
+        filteredRecords = [...allRecords];
+        renderRecords(filteredRecords);
+        
+        // Show error message but still display sample data
+        showErrorState('Could not connect to the medical records API. Showing sample data instead.');
+    }
 }
 
 // Render the medical records to the DOM

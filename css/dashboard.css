@@ -701,3 +701,63 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+
+/* Popup Overlay */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Popup Container */
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    width: 50%;
+    max-width: 500px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+/* Popup Header */
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Close Button */
+.popup-header .close-btn {
+    cursor: pointer;
+    font-size: 22px;
+    color: red;
+}
+
+/* Test Results Content */
+.popup-content {
+    margin-top: 10px;
+}
+
+/* Test Result Item */
+.test-result-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.test-result-item:last-child {
+    border-bottom: none;
+}

@@ -225,17 +225,27 @@
                                     </div>
                                     <span>Virtual Consultation</span>
                                 </div>
-                                <div class="action-item">
+                                <div class="action-item" >
                                     <div class="action-icon purple">
                                         <i class="fas fa-prescription"></i>
                                     </div>
                                     <span>Refill Prescription</span>
                                 </div>
-                                <div class="action-item">
+                                <div class="action-item" id="testResultsBtn">
                                     <div class="action-icon orange">
                                         <i class="fas fa-file-medical-alt"></i>
                                     </div>
                                     <span>Test Results</span>
+                                </div>
+                                <div class="popup-overlay" id="popupOverlay"></div>
+                                <div class="popup-container" id="popupContainer">
+                                    <div class="popup-header">
+                                        <span>Test Results</span>
+                                        <span class="close-btn" id="closePopup">&times;</span>
+                                    </div>
+                                    <div class="popup-content" id="testResultsContent">
+                                        <p>Loading...</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

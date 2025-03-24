@@ -236,3 +236,64 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const testResultsBtn = document.getElementById("testResultsBtn");
+    const popupOverlay = document.getElementById("popupOverlay");
+    const popupContainer = document.getElementById("popupContainer");
+    const closePopup = document.getElementById("closePopup");
+    const testResultsContent = document.getElementById("testResultsContent");
+    const accessToken = localStorage.getItem('access_token')
+
+    testResultsBtn.addEventListener("click", function () {
+        popupOverlay.style.display = "block";
+        popupContainer.style.display = "block";
+        fetchTestResults();
+    });
+
+    closePopup.addEventListener("click", closePopupHandler);
+    popupOverlay.addEventListener("click", closePopupHandler);
+
+    function closePopupHandler() {
+        popupOverlay.style.display = "none";
+        popupContainer.style.display = "none";
+    }
+
+    function fetchTestResults() {
+        testResultsContent.innerHTML = "<p>Loading...</p>";
+
+        fetch("https://hcms-api-production.up.railway.app/api/get/user/test/results/", {
+            method: "GET",
+            headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.test_results && data.test_results.length > 0) {
+                let resultsHtml = data.test_results.map(test => `
+                    <div class="test-result-item">
+                        <strong>Test Name:</strong> ${test.test_name}<br>
+                        <strong>Date:</strong> ${new Date(test.test_date).toLocaleString()}<br>
+                        <strong>Uploaded By:</strong> ${test.uploaded_by}<br>
+                        <strong>Status:</strong> ${test.status}<br>
+                        <strong>Remarks:</strong> ${test.remarks}<br>
+                        <strong>Results:</strong>
+                        <ul>
+                            ${Object.entries(test.results).map(([key, value]) => `<li>${key}: ${value}</li>`).join("")}
+                        </ul>
+                    </div>
+                `).join("");
+                testResultsContent.innerHTML = resultsHtml;
+            } else {
+                testResultsContent.innerHTML = "<p>No test results available.</p>";
+            }
+        })
+        .catch(() => {
+            testResultsContent.innerHTML = "<p>Error fetching test results. Please try again.</p>";
+        });
+    }
+});
+

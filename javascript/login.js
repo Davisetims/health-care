@@ -203,11 +203,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Redirect based on user role
                 if (data.user.role === 'doctor') {
-                    window.location.href = 'doctor_dashboard.html';
+                    window.location.href = 'doctor/dashboard.html';
                 } else if (data.user.role === 'patient') {
-                    window.location.href = 'patient_dashboard.html';
+                    window.location.href = 'patient/dashboard.html';
                 } else if (data.user.role === 'admin') {
-                    window.location.href = 'admin_dashboard.html';
+                    window.location.href = 'admin/dashboard.html';
                 } else {
                     throw new Error('Invalid user role.');
                 }

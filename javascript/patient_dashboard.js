@@ -158,9 +158,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             <p>Notes: ${appointment.notes || 'No notes provided'}</p>
                             <div class="appointment-time">
                                 <i class="far fa-calendar-alt"></i>
-                                <span>${new Date(appointment.appointment_date).toLocaleDateString()}</span>
+                                <span>${new Date(appointment.date).toLocaleDateString()}</span>
                                 <i class="far fa-clock"></i>
-                                <span>${new Date(appointment.appointment_date).toLocaleTimeString()}</span>
+                                <span>${new Date(appointment.date).toLocaleTimeString()}</span>
                             </div>
                             <p>Status: ${appointment.status}</p>
                         </div>

@@ -293,3 +293,8 @@ function escapeHTML(str) {
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
 }
+function setupEventListeners() {
+    // Remove or comment out these lines
+    // searchInput.addEventListener('input', filterRecords);
+    // sortSelect.addEventListener('change', sortRecords);
+}

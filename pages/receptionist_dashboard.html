@@ -7,358 +7,6 @@
     <title>Receptionist Dashboard - HMS</title>
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7fa;
-            color: #333;
-        }
-
-        .dashboard-container {
-            display: flex;
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: #fff;
-            height: 100vh;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar .logo h2 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .sidebar .menu ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar .menu ul li {
-            margin: 15px 0;
-        }
-
-        .sidebar .menu ul li a {
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-
-        .sidebar .menu ul li a:hover {
-            background-color: #34495e;
-        }
-
-        .sidebar .menu ul li a i {
-            margin-right: 10px;
-        }
-
-        .sidebar .sidebar-footer {
-            position: absolute;
-            bottom: 20px;
-            width: 210px;
-        }
-
-        .sidebar .sidebar-footer a {
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-
-        .sidebar .sidebar-footer a:hover {
-            background-color: #34495e;
-        }
-
-        /* Main Content Styles */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .search-bar i {
-            margin-right: 10px;
-            color: #888;
-        }
-
-        .search-bar input {
-            border: none;
-            outline: none;
-            font-size: 16px;
-        }
-
-        .user-area {
-            display: flex;
-            align-items: center;
-        }
-
-        .notifications {
-            position: relative;
-            margin-right: 20px;
-            cursor: pointer;
-        }
-
-        .notifications .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: #e74c3c;
-            color: #fff;
-            border-radius: 50%;
-            padding: 5px 8px;
-            font-size: 12px;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .user-profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .user-profile i {
-            margin-left: 10px;
-        }
-
-        /* Stats Cards */
-        .stats-cards {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 23%;
-            text-align: center;
-        }
-
-        .stat-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .stat-icon.blue {
-            color: #3498db;
-        }
-
-        .stat-icon.green {
-            color: #2ecc71;
-        }
-
-        .stat-icon.purple {
-            color: #9b59b6;
-        }
-
-        .stat-icon.orange {
-            color: #e67e22;
-        }
-
-        .stat-details h3 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .stat-details p {
-            margin: 5px 0 0;
-            color: #888;
-        }
-
-        /* Dashboard Grid */
-        .dashboard-grid {
-            display: flex;
-            gap: 20px;
-        }
-
-        .dashboard-column {
-            flex: 1;
-        }
-
-        .dashboard-card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .card-header h2 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .card-header .view-all {
-            color: #3498db;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .card-header .view-all:hover {
-            text-decoration: underline;
-        }
-
-        /* Appointments List */
-        .appointments-list .appointment-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .appointment-item .appointment-icon img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
-
-        .appointment-item .appointment-details h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .appointment-item .appointment-details p {
-            margin: 5px 0;
-            color: #888;
-        }
-
-        .appointment-item .appointment-time {
-            display: flex;
-            align-items: center;
-            color: #888;
-        }
-
-        .appointment-item .appointment-time i {
-            margin-right: 5px;
-        }
-
-        .appointment-item .appointment-actions button {
-            margin-left: 10px;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .appointment-item .btn-check-in {
-            background-color: #2ecc71;
-            color: #fff;
-        }
-
-        .appointment-item .btn-cancel {
-            background-color: #e74c3c;
-            color: #fff;
-        }
-
-        /* Quick Actions */
-        .quick-actions {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .quick-actions .action-item {
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .quick-actions .action-item .action-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .quick-actions .action-item span {
-            font-size: 14px;
-            color: #888;
-        }
-
-        /* Pending Bills */
-        .bills-list .bill-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .bill-item .bill-icon {
-            font-size: 24px;
-            margin-right: 15px;
-            color: #3498db;
-        }
-
-        .bill-item .bill-details h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .bill-item .bill-details p {
-            margin: 5px 0;
-            color: #888;
-        }
-
-        .bill-item .bill-info {
-            display: flex;
-            gap: 10px;
-            color: #888;
-        }
-
-        .bill-item .bill-actions button {
-            margin-left: 10px;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #2ecc71;
-            color: #fff;
-        }
-    </style>
 </head>
 
 <body>
@@ -372,7 +20,11 @@
                 <ul>
                     <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
-                    <li><a href="#"><i class="fas fa-user-plus"></i> Add Patient</a></li>
+                    <li>
+                        <a href="#" onclick="addPatient()">
+                            <i class="fas fa-user-plus"></i> Add Patient
+                        </a>
+                    </li>
                     <li><a href="#"><i class="fas fa-users"></i> Patient Records</a></li>
                     <li><a href="#"><i class="fas fa-file-invoice"></i> Billing</a></li>
                 </ul>
@@ -437,15 +89,6 @@
                             <p>Pending Bills</p>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon orange">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="stat-details">
-                            <h3>3</h3>
-                            <p>Overdue Tasks</p>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Two Column Layout -->
@@ -503,7 +146,7 @@
                         <!-- Recent Patients -->
                         <div class="dashboard-card">
                             <div class="card-header">
-                                <h2>Recent Patients</h2>
+                                <h2>Patients</h2>
                                 <a href="#" class="view-all">View All</a>
                             </div>
                             <div class="patients-list">
@@ -543,12 +186,6 @@
                                 <h2>Quick Actions</h2>
                             </div>
                             <div class="quick-actions">
-                                <div class="action-item" onclick="scheduleAppointment()">
-                                    <div class="action-icon blue">
-                                        <i class="fas fa-calendar-plus"></i>
-                                    </div>
-                                    <span>Schedule Appointment</span>
-                                </div>
                                 <div class="action-item" onclick="addPatient()">
                                     <div class="action-icon green">
                                         <i class="fas fa-user-plus"></i>
@@ -617,7 +254,8 @@
         </div>
     </div>
 
-    <script>
+    <script> src="../javascript/receptionist_dashboard.js"
+
         // JavaScript Functions
         function checkIn() {
             alert("Patient checked in successfully!");
@@ -635,9 +273,10 @@
             alert("Redirecting to schedule appointment...");
         }
 
+        
         function addPatient() {
-            alert("Redirecting to add new patient...");
-        }
+        window.location.href = "add_patient.html";
+    }
 
         function generateBill() {
             alert("Generating bill...");

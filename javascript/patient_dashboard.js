@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('user');
 
             // Redirect to landing page
-            window.location.href = '../index.php';
+            window.location.href = '../../index.php';
         });
     }
 });

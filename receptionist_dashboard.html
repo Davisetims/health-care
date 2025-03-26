@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receptionist Dashboard - HMS</title>
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/receptionist.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
@@ -14,23 +15,22 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-                <h2>HMS</h2>
+                <h2>Pharmail</h2>
             </div>
             <nav class="menu">
                 <ul>
                     <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
                     <li>
-                        <a href="#" onclick="addPatient()">
+                        <a href="#" onclick="openModal(); return false;">
                             <i class="fas fa-user-plus"></i> Add Patient
                         </a>
                     </li>
-                    <li><a href="#"><i class="fas fa-users"></i> Patient Records</a></li>
                     <li><a href="#"><i class="fas fa-file-invoice"></i> Billing</a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="../pages/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
 
@@ -186,7 +186,7 @@
                                 <h2>Quick Actions</h2>
                             </div>
                             <div class="quick-actions">
-                                <div class="action-item" onclick="addPatient()">
+                                <div class="action-item" onclick="openModal()">
                                     <div class="action-icon green">
                                         <i class="fas fa-user-plus"></i>
                                     </div>
@@ -254,29 +254,79 @@
         </div>
     </div>
 
-    <script> src="../javascript/receptionist_dashboard.js"
+    <!-- Add Patient Modal -->
+    <div id="addPatientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add New Patient</h2>
+            <form id="patientForm">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" required>
 
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" required>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="contact">Contact Number:</label>
+                <input type="tel" id="contact" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email">
+
+                <label for="address">Address:</label>
+                <textarea id="address" rows="3"></textarea>
+
+                <div class="form-section">
+                    <h3>Account Setup</h3>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-field">
+                            <input type="password" id="password" name="password"
+                                placeholder="Create a strong password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="password-field">
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-submit">Add Patient</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
         // JavaScript Functions
         function checkIn() {
             alert("Patient checked in successfully!");
         }
 
         function cancelAppointment() {
-            alert("Appointment canceled!");
+            if (confirm("Are you sure you want to cancel this appointment?")) {
+                alert("Appointment canceled!");
+            }
         }
 
         function viewPatient() {
             alert("Viewing patient details...");
         }
 
-        function scheduleAppointment() {
-            alert("Redirecting to schedule appointment...");
-        }
-
-        
         function addPatient() {
-        window.location.href = "add_patient.html";
-    }
+            openModal();
+        }
 
         function generateBill() {
             alert("Generating bill...");
@@ -289,7 +339,44 @@
         function markPaid() {
             alert("Bill marked as paid!");
         }
-    </script>
-</body>
 
+        // Modal Functions
+        function openModal() {
+            document.getElementById('addPatientModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('addPatientModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('addPatientModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('patientForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the data to your backend
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                dob: document.getElementById('dob').value,
+                gender: document.getElementById('gender').value,
+                contact: document.getElementById('contact').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value
+            };
+            
+            console.log('Form submitted:', formData);
+            alert('Patient added successfully!');
+            closeModal();
+            this.reset();
+        });
+    </script>
+
+</body>
 </html>

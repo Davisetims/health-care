@@ -588,3 +588,112 @@ function escapeHTML(str) {
     return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+
+$(document).ready(function () {
+    // Open Consultation Popup
+    $("#openConsultationPopup").click(function () {
+        $("#consultationOverlay, #consultationContainer").fadeIn();
+        fetchConsultations();
+    });
+
+    // Close Consultation Popup
+    $("#closeConsultationPopup, #consultationOverlay").click(function () {
+        $("#consultationOverlay, #consultationContainer").fadeOut();
+    });
+
+    // Close Meeting Popup
+    $("#closeMeetingPopup, #meetingOverlay").click(function () {
+        $("#meetingOverlay, #meetingContainer").fadeOut();
+        $("#meetingFrame").attr("src", "");
+    });
+
+    // Dynamically bind click event to consultation buttons
+    $(document).on("click", ".join-meeting-btn", function () {
+        let consultationId = $(this).attr("data-id");
+        console.log("Clicked Consultation ID:", consultationId); // Debugging
+        if (consultationId) {
+            openMeeting(consultationId);
+        } else {
+            alert("Error: Consultation ID is missing.");
+        }
+    });
+});
+
+// Fetch all consultations with token
+// Fetch all consultations with token
+function fetchConsultations() {
+    let token = localStorage.getItem("access_token");
+    if (!token) {
+        alert("No access token found! Please log in.");
+        return;
+    }
+
+    $.ajax({
+        url: "https://hcms-api-production.up.railway.app/api/get/meeting/link",
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+        success: function (data) {
+            console.log("API Response:", data); // Debugging
+
+            // Ensure data is an array
+            let consultations = Array.isArray(data) ? data : [data];
+
+            if (!consultations.length) {
+                $("#consultationList").html("<li class='list-group-item'>No consultations found.</li>");
+                return;
+            }
+
+            let listHTML = "";
+            consultations.forEach((consultation) => {
+                if (!consultation.id) {
+                    console.warn("Skipping invalid consultation:", consultation);
+                    return;
+                }
+                listHTML += `
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ${new Date(consultation.date).toLocaleString()} 
+                        <button class="btn btn-primary btn-sm join-meeting-btn" data-id="${consultation.id}">
+                            Join
+                        </button>
+                    </li>`;
+            });
+
+            $("#consultationList").html(listHTML);
+        },
+        error: function (xhr) {
+            console.error("Error fetching consultations:", xhr.responseText);
+            alert("Error fetching consultations.");
+        }
+    });
+}
+
+
+// Fetch meeting details and open popup
+function openMeeting(consultationId) {
+    let token = localStorage.getItem("access_token");
+    if (!token) {
+        alert("No access token found! Please log in.");
+        return;
+    }
+
+    $.ajax({
+        url: `https://hcms-api-production.up.railway.app/api/get/meeting/link/${consultationId}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+        success: function (data) {
+            console.log("Meeting Details:", data); // Debugging
+            if (data.meeting_link) {
+                $("#meetingFrame").attr("src", data.meeting_link);
+                $("#meetingOverlay, #meetingContainer").fadeIn();
+            } else {
+                alert("Meeting link not available.");
+            }
+        },
+        error: function (xhr) {
+            console.error("Error fetching meeting details:", xhr.responseText);
+            alert("Error fetching meeting details.");
+        }
+    });
+
+    $("#consultationOverlay, #consultationContainer").fadeOut();
+}

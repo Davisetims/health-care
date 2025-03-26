@@ -761,3 +761,79 @@ button:hover {
 .test-result-item:last-child {
     border-bottom: none;
 }
+
+/* Prescriptions over lay */
+
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    max-width: 90%;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+    color: red;
+}
+
+.popup-content {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 10px;
+    padding-right: 10px;
+}
+
+.prescription-item {
+    background: #f5f5f5;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #007bff;
+}
+
+.prescription-item strong {
+    color: #333;
+}
+
+.prescription-item h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #007bff;
+}
+
+.medication-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.medication-item {
+    background: #e8f5e9;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}

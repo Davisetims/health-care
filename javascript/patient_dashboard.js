@@ -8,14 +8,46 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // User profile dropdown
-    const userProfile = document.querySelector('.user-profile');
-    if (userProfile) {
-        userProfile.addEventListener('click', function() {
-            // Code for user dropdown menu
-            console.log('User profile clicked');
-            // Here you would typically toggle a dropdown menu
-        });
+    // Load user data first
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const userProfileImg = document.querySelector(".user-profile img");
+    const usernameSpan = document.querySelector(".user-profile span");
+    const welcomeMessage = document.querySelector(".dashboard-content h1");
+    
+    if (userData) {
+        // Set username
+        if (usernameSpan) {
+            usernameSpan.textContent = userData.username || "Unknown User";
+        }
+        
+        // Update welcome message
+        if (welcomeMessage) {
+            welcomeMessage.textContent = `Welcome back, ${userData.username || "User"}!`;
+        }
+        
+        // User profile setup
+        const userProfile = document.querySelector('.user-profile');
+        if (userProfile) {
+            userProfile.addEventListener('click', function() {
+                // Code for user dropdown menu
+                console.log('User profile clicked');
+                // Here you would typically toggle a dropdown menu
+            });
+            
+            // Check if profile picture exists, if not, create avatar letter
+            if (!userData.personal_details?.profile_picture || userData.personal_details.profile_picture.includes("/api/placeholder")) {
+                // Use user's actual name or username for avatar
+                const userName = userData.personal_details?.last_name || userData.username || "User";
+                generateAvatarLetter(userName, userProfile);
+            } else if (userProfileImg) {
+                // Set user profile image
+                userProfileImg.src = userData.personal_details.profile_picture;
+                userProfileImg.alt = userData.username || "User Profile";
+            }
+        }
+    } else {
+        // Redirect to login page if user data is missing
+        window.location.href = "login.html";
     }
 
     // Notifications panel
@@ -28,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Rest of your code...
     // Quick action buttons
     const actionItems = document.querySelectorAll('.action-item');
     actionItems.forEach(item => {
@@ -49,6 +82,54 @@ document.addEventListener("DOMContentLoaded", function() {
     // Simulate loading indicators
     simulateLoading();
 });
+
+// Generate avatar letter - moved outside the event listener
+function generateAvatarLetter(userName, userProfile) {
+    if (!userName) return '';
+    
+    // Get the first character of the username
+    const initial = userName.charAt(0).toUpperCase();
+    
+    // Create a consistent color based on the username
+    const stringToColor = (str) => {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        let color = '#';
+        for (let i = 0; i < 3; i++) {
+            const value = (hash >> (i * 8)) & 0xFF;
+            color += ('00' + value.toString(16)).substr(-2);
+        }
+        return color;
+    };
+    
+    const backgroundColor = stringToColor(userName);
+    
+    // Create and append the avatar
+    const avatar = document.createElement('div');
+    avatar.classList.add('avatar-letter');
+    avatar.textContent = initial;
+    avatar.style.backgroundColor = backgroundColor;
+    avatar.style.color = '#ffffff';
+    avatar.style.width = '40px';
+    avatar.style.height = '40px';
+    avatar.style.borderRadius = '50%';
+    avatar.style.display = 'flex';
+    avatar.style.justifyContent = 'center';
+    avatar.style.alignItems = 'center';
+    avatar.style.fontWeight = 'bold';
+    
+    // Find image in user profile or append to user profile
+    const existingImg = userProfile.querySelector('img');
+    if (existingImg) {
+        // Replace image with our avatar
+        existingImg.parentNode.replaceChild(avatar, existingImg);
+    } else {
+        // No image exists, add the avatar
+        userProfile.appendChild(avatar);
+    }
+}
 
 function setupActionButtons(className, message) {
     const buttons = document.querySelectorAll(`.${className}`);
@@ -108,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('user');
 
             // Redirect to landing page
-            window.location.href = '../index.php';
+            window.location.href = '../../../index.php';
         });
     }
 });
@@ -390,4 +471,120 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const prescriptionBtn = document.getElementById("prescriptionBtn");
+    const prescriptionOverlay = document.getElementById("prescriptionOverlay");
+    const prescriptionContainer = document.getElementById("prescriptionContainer");
+    const closePrescriptionPopup = document.getElementById("closePrescriptionPopup");
+    const prescriptionContent = document.getElementById("prescriptionContent");
+    const accessToken = localStorage.getItem('access_token');
+
+    prescriptionBtn.addEventListener("click", function () {
+        prescriptionOverlay.style.display = "block";
+        prescriptionContainer.style.display = "block";
+        fetchPrescriptions();
+    });
+
+    closePrescriptionPopup.addEventListener("click", closePrescriptionHandler);
+    prescriptionOverlay.addEventListener("click", closePrescriptionHandler);
+
+    function closePrescriptionHandler() {
+        prescriptionOverlay.style.display = "none";
+        prescriptionContainer.style.display = "none";
+    }
+
+    function fetchPrescriptions() {
+        prescriptionContent.innerHTML = "<p>Loading...</p>";
+
+        fetch("https://hcms-api-production.up.railway.app/api/get/patient/prescriptions/", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.prescriptions && data.prescriptions.length > 0) {
+                let prescriptionsHtml = data.prescriptions.map(prescription => `
+                    <div class="prescription-item">
+                        <strong>Doctor:</strong> Dr. ${prescription.doctor_first_name} ${prescription.doctor_last_name}<br>
+                        <strong>Date:</strong> ${new Date(prescription.prescribed_date).toLocaleString()}<br>
+                        <h3>Medications:</h3>
+                        <ul>
+                            ${prescription.medications.map(med => `
+                                <li><strong>${med.name}</strong> - ${med.dosage} (${med.frequency})</li>
+                            `).join("")}
+                        </ul>
+                    </div>
+                `).join("");
+
+                prescriptionContent.innerHTML = prescriptionsHtml;
+            } else {
+                prescriptionContent.innerHTML = "<p>No prescriptions available.</p>";
+            }
+        })
+        .catch(() => {
+            prescriptionContent.innerHTML = "<p>Error fetching prescriptions. Please try again.</p>";
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const messagesList = document.querySelector(".message-details");
+     const accessToken = localStorage.getItem('access_token'); // Get token from localStorage
+
+    if (!accessToken) {
+        console.error("No access token found. Please log in.");
+        return;
+    }
+
+    fetch("https://hcms-api-production.up.railway.app/api/get/message/", {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${accessToken}`, // Attach the token
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch messages. Please check your authentication.");
+            }
+            return response.json();
+        })
+        .then(data => {
+            messagesList.innerHTML = ""; // Clear existing messages
+
+            data.messages.forEach(message => {
+                const messageItem = document.createElement("div");
+                messageItem.classList.add("message-item", "unread");
+
+                messageItem.innerHTML = `
+                    <div class="message-icon">
+                        <img src="assets/oscar.png" alt="${message.sender.role}">
+                    </div>
+                    <div class="message-details">
+                        <h3>Dr. ${message.sender.first_name} ${message.sender.last_name}</h3>
+                        <p>${escapeHTML(message.message)}</p>
+                        <span class="message-time">${formatTimestamp(message.timestamp)}</span>
+                    </div>
+                `;
+
+                messagesList.appendChild(messageItem);
+            });
+        })
+        .catch(error => console.error("Error fetching messages:", error));
+});
+
+// Function to format timestamp to a readable format
+function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+}
+
+// Helper function to prevent XSS attacks
+function escapeHTML(str) {
+    return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 

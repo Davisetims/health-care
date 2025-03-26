@@ -20,10 +20,9 @@
                 <ul>
                     <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#appointments"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
-                    <li><a href="#"><i class="fas fa-notes-medical"></i> Medical Records</a></li>
-                    <li><a href="#"><i class="fas fa-pills"></i> Prescriptions</a></li>
+                    <li><a href="../patient/records.html"><i class="fas fa-notes-medical"></i> Medical Records</a></li>
+                    <li><a href="#" id="prescriptionsLink"><i class="fas fa-pills"></i> Prescriptions</a></li>
                     <li><a href="#"><i class="fas fa-comment-medical"></i> Consultations</a></li>
-                    <li><a href="../pages/find_doctors.html"><i class="fas fa-user-md"></i> Find Doctors</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
                 </ul>
             </nav>
@@ -112,7 +111,7 @@
                             <div class="appointments-list">
                                 <div class="appointment-item">
                                     <div class="appointment-icon">
-                                        <img src="/api/placeholder/50/50" alt="Doctor">
+                                        <img src="assets/oscar.png" alt="Doctor">
                                     </div>
                                     <div class="appointment-details">
                                         <h3>Dr. Sarah Johnson</h3>
@@ -225,12 +224,25 @@
                                     </div>
                                     <span>Virtual Consultation</span>
                                 </div>
-                                <div class="action-item" >
+                                <div class="action-item" id="prescriptionBtn">
                                     <div class="action-icon purple">
                                         <i class="fas fa-prescription"></i>
                                     </div>
-                                    <span>Refill Prescription</span>
+                                    <span>Prescription</span>
                                 </div>
+
+                                <!-- Prescription Popup -->
+                                <div class="popup-overlay" id="prescriptionOverlay"></div>
+                                <div class="popup-container" id="prescriptionContainer">
+                                    <div class="popup-header">
+                                        <span>Prescriptions</span>
+                                        <span class="close-btn" id="closePrescriptionPopup">&times;</span>
+                                    </div>
+                                    <div class="popup-content" id="prescriptionContent">
+                                        <p>Loading...</p>
+                                    </div>
+                                </div>
+
                                 <div class="action-item" id="testResultsBtn">
                                     <div class="action-icon orange">
                                         <i class="fas fa-file-medical-alt"></i>
